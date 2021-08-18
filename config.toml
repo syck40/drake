@@ -1,0 +1,114 @@
+languageCode = 'en-us'
+theme = "hugo-theme-shell"
+
+[Params]
+  # Note: This is for the meta description, which is different from the "description" displayed in the terminal.
+  description = "Dan Luo's Portfolio!"
+  [Params.Terminal]
+  # Note: color schema
+  # Note: You can choose between
+  # Note: ["monokai", "powershell", "gruvbox_light", "gruvbox_dark", "solarized_light", "solarized_dark", "ubuntu", "retro"]
+  schema = "retro"
+
+  # Note: in terminal
+  # [userName]@[pcName]:~/$ cd [workDir]
+  # [userName]@[pcName]:~/[workDir]$ cat [profile]
+  #
+  # [description]
+  #
+  # Note: if you set Params.Tree > use = true
+  # [userName]@[pcName]:~/[workDir]$ tree ./[folderName]/
+  # ./[folderName]/
+  # ...
+  # Note: result of the tree command
+  userName = "dluo"
+  pcName = "laptop"
+  workDir = "builds"
+  profile = "profile.txt"
+
+  # Note: speed at which text is displayed on the terminal
+  # Note: if set to 0, typing animation will be disabled
+  terminalDelay = 2
+
+  # Note: speed at which text is displayed on the activity pages
+  # Note: if set to 0, typing animation will be disabled
+  activityDelay = 1
+
+  description = """
+  Hi, I am Dan Luo!
+  Nice to meet you!
+  This is my landing page, 
+  Feel free to click the following to find out more about me.
+  """
+
+  # Note: If you want to use a Markdown file, you can use the following
+  # description = "/description.md"
+  # Note: and put the description.md in /content/description.md
+
+  [Params.Tree]
+  use = true
+  folderName = "my_activity"
+  # Note: ["ACTIVITY", "URL or PATH TO YOUR MARKDOWN FILE"]
+  files = [
+    ["resume", "http://cv.drakenor.com/"],
+    ["blog", "http://blog.drakenor.com/"],
+    ["linkedin", "https://www.linkedin.com/in/dan-dake-luo"],
+    ["github", "https://github.com/syck40?tab=repositories"],
+  ]
+
+[deployment]
+# By default, files are uploaded in an arbitrary order.
+# Files that match the regular expressions in the "Order" list
+# will be uploaded first, in the listed order.
+order = [".jpg$", ".gif$"]
+
+
+[[deployment.targets]]
+# An arbitrary name for this target.
+name = "drakeMain"
+
+# S3; see https://gocloud.dev/howto/blob/#s3
+# For S3-compatible endpoints, see https://gocloud.dev/howto/blob/#s3-compatible
+URL = "s3://drakenor.com?region=us-west-1"
+
+# If you are using a CloudFront CDN, deploy will invalidate the cache as needed.
+#cloudFrontDistributionID = <ID>
+
+# Optionally, you can include or exclude specific files.
+# See https://godoc.org/github.com/gobwas/glob#Glob for the glob pattern syntax.
+# If non-empty, the pattern is matched against the local path.
+# All paths are matched against in their filepath.ToSlash form.
+# If exclude is non-empty, and a local or remote file's path matches it, that file is not synced.
+# If include is non-empty, and a local or remote file's path does not match it, that file is not synced.
+# As a result, local files that don't pass the include/exclude filters are not uploaded to remote,
+# and remote files that don't pass the include/exclude filters are not deleted.
+# include = "**.html" # would only include files with ".html" suffix
+# exclude = "**.{jpg, png}" # would exclude files with ".jpg" or ".png" suffix
+
+
+# [[deployment.matchers]] configure behavior for files that match the Pattern.
+# See https://golang.org/pkg/regexp/syntax/ for pattern syntax.
+# Pattern searching is stopped on first match.
+
+# Samples:
+
+#[[deployment.matchers]]
+# Cache static assets for 1 year.
+#pattern = "^.+\\.(js|css|svg|ttf)$"
+#cacheControl = "max-age=31536000, no-transform, public"
+#gzip = true
+
+#[[deployment.matchers]]
+#pattern = "^.+\\.(png|jpg)$"
+#cacheControl = "max-age=31536000, no-transform, public"
+#gzip = false
+
+#[[deployment.matchers]]
+# Set custom content type for /sitemap.xml
+#pattern = "^sitemap\\.xml$"
+#contentType = "application/xml"
+#gzip = true
+
+#[[deployment.matchers]]
+#pattern = "^.+\\.(html|xml|json)$"
+#gzip = true
